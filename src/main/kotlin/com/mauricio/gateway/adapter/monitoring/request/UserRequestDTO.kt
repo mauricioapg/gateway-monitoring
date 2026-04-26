@@ -1,6 +1,7 @@
 package com.mauricio.gateway.adapter.monitoring.request
 
 data class UserRequestDTO(
-    val documentNumber: String,
-    val clients: MutableList<String>
+    val alias: String,
+    val email: String,
+    val password: String? = null,
 )
