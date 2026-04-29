@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestParam
 import java.util.UUID
 
 @FeignClient(
@@ -62,7 +63,10 @@ interface MonitoringAPI {
         value = ["/monitored-apis"],
         produces = ["application/json"]
     )
-    fun getMonitoredApis(): ResponseEntity<*>
+    fun getMonitoredApis(
+        @RequestParam page: Int,
+        @RequestParam size: Int
+    ): ResponseEntity<*>
 
     @GetMapping(
         value = ["/monitored-apis/{id}"],

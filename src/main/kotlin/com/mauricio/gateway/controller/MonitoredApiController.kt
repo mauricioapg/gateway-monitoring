@@ -20,8 +20,11 @@ class MonitoredApiController(
         monitoringAPI.createMonitoredApi(userId, request)
 
     @GetMapping
-    fun list(): ResponseEntity<*> {
-        return monitoringAPI.getMonitoredApis()
+    fun list(
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "20") size: Int
+    ): ResponseEntity<*> {
+        return monitoringAPI.getMonitoredApis(page, size)
     }
 
     @GetMapping("/{id}")
