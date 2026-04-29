@@ -1,20 +1,27 @@
 package com.mauricio.gateway.configuration
 
 import feign.RequestInterceptor
-import org.springframework.beans.factory.annotation.Value
+import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
 class FeignConfig {
 
-    @Value("\${monitoring-api.security.key}")
-    private lateinit var apiKey: String
-
     @Bean
     fun requestInterceptor(): RequestInterceptor {
-        return RequestInterceptor {
-            it.header("x-api-key", apiKey)
+        return RequestInterceptor { template ->
+
+            val log = LoggerFactory.getLogger("FEIGN")
+
+            template.header("x-api-key", "zurgD6SwnioG1bcAHqnjBPdBSWDjw2GuzNQNzgaEMo82HJRseynjyFwJ9tDcXIyG")
+
+            log.info("""
+                FEIGN REQUEST
+                URL: ${template.url()}
+                METHOD: ${template.method()}
+                HEADERS: ${template.headers()}
+            """.trimIndent())
         }
     }
 }

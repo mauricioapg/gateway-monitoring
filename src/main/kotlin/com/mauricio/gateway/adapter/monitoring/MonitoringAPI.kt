@@ -4,6 +4,7 @@ import com.mauricio.gateway.adapter.monitoring.request.ApiCheckHistoryRequestDTO
 import com.mauricio.gateway.adapter.monitoring.request.MonitoredApiRequestDTO
 import com.mauricio.gateway.adapter.monitoring.request.UserRequestDTO
 import com.mauricio.gateway.adapter.monitoring.response.UserResponseDTO
+import com.mauricio.gateway.configuration.FeignConfig
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -16,7 +17,8 @@ import java.util.UUID
 
 @FeignClient(
     name = "monitoring-api",
-    url = "\${monitoring-api.url}"
+    url = "\${monitoring-api.url}",
+    configuration = [FeignConfig::class]
 )
 interface MonitoringAPI {
 
