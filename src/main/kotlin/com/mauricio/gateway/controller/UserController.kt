@@ -28,6 +28,11 @@ class UserController(
         return monitoringAPI.getUsers()
     }
 
+    @GetMapping("/teste")
+    fun listTeste(): ResponseEntity<*> {
+        return monitoringAPI.getUsersTeste()
+    }
+
     @PostMapping
     fun create(
         @RequestBody request: UserRequestDTO
