@@ -30,7 +30,7 @@ class UserController(
     }
 
     @GetMapping("/teste")
-    fun listTeste(): ResponseEntity<*> {
+    fun listTeste(): List<UserResponseDTO> {
         return monitoringAPI.getUsersTeste()
     }
 

@@ -39,7 +39,7 @@ interface MonitoringAPI {
         value = ["/users/teste"],
         produces = ["application/json"]
     )
-    fun getUsersTeste(): ResponseEntity<*>
+    fun getUsersTeste(): List<UserResponseDTO>
 
     @GetMapping(
         value = ["/users/{id}"],
