@@ -12,6 +12,17 @@ class UserController(
     private val monitoringAPI: MonitoringAPI
 ) {
 
+    @GetMapping("/test-monitoring")
+    fun testMonitoring(): ResponseEntity<String> {
+
+        val url = "https://monitoring-api-1.onrender.com/health"
+
+        val response = java.net.URL(url)
+            .readText()
+
+        return ResponseEntity.ok(response)
+    }
+
     @GetMapping
     fun list(): ResponseEntity<*> {
         return monitoringAPI.getUsers()
