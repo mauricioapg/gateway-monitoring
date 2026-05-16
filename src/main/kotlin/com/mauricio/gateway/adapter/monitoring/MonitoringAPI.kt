@@ -37,7 +37,7 @@ interface MonitoringAPI {
     fun getUsers(
         @RequestParam page: Int,
         @RequestParam size: Int
-    ): ResponseEntity<PageResponseDTO<UserResponseDTO>>
+    ): PageResponseDTO<UserResponseDTO>
 
     @GetMapping(
         value = ["/users/teste"],

@@ -26,7 +26,7 @@ class UserController(
     }
 
     @GetMapping
-    fun list(): ResponseEntity<PageResponseDTO<UserResponseDTO>> {
+    fun list(): PageResponseDTO<UserResponseDTO> {
         return monitoringAPI.getUsers(0, 20)
     }
 
