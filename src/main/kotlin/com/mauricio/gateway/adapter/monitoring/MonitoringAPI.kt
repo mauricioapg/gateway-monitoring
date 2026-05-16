@@ -3,6 +3,7 @@ package com.mauricio.gateway.adapter.monitoring
 import com.mauricio.gateway.adapter.monitoring.request.ApiCheckHistoryRequestDTO
 import com.mauricio.gateway.adapter.monitoring.request.MonitoredApiRequestDTO
 import com.mauricio.gateway.adapter.monitoring.request.UserRequestDTO
+import com.mauricio.gateway.adapter.monitoring.response.PageResponseDTO
 import com.mauricio.gateway.adapter.monitoring.response.UserResponseDTO
 import com.mauricio.gateway.configuration.FeignConfig
 import org.springframework.cloud.openfeign.FeignClient
@@ -33,7 +34,10 @@ interface MonitoringAPI {
         value = ["/users"],
         produces = ["application/json"]
     )
-    fun getUsers(): ResponseEntity<*>
+    fun getUsers(
+        @RequestParam page: Int,
+        @RequestParam size: Int
+    ): ResponseEntity<PageResponseDTO<UserResponseDTO>>
 
     @GetMapping(
         value = ["/users/teste"],
@@ -45,25 +49,25 @@ interface MonitoringAPI {
         value = ["/users/{id}"],
         produces = ["application/json"]
     )
-    fun getUserById(@PathVariable id: String): ResponseEntity<*>
+    fun getUserById(@PathVariable id: String): UserResponseDTO
 
     @PutMapping(
         value = ["/users/{id}"],
         produces = ["application/json"]
     )
-    fun updateUser(@PathVariable id: UUID, @RequestBody request: UserRequestDTO): ResponseEntity<*>
+    fun updateUser(@PathVariable id: UUID, @RequestBody request: UserRequestDTO): UserResponseDTO
 
     @DeleteMapping(
         value = ["/users/{id}"],
         produces = ["application/json"]
     )
-    fun deleteUser(@PathVariable id: UUID): ResponseEntity<*>
+    fun deleteUser(@PathVariable id: UUID)
 
     @PostMapping(
         value = ["/users"],
         produces = ["application/json"]
     )
-    fun createUser(@RequestBody request: UserRequestDTO): ResponseEntity<*>
+    fun createUser(@RequestBody request: UserRequestDTO): UserResponseDTO
 
     @GetMapping(
         value = ["/monitored-apis"],
@@ -72,7 +76,7 @@ interface MonitoringAPI {
     fun getMonitoredApis(
         @RequestParam page: Int,
         @RequestParam size: Int
-    ): ResponseEntity<*>
+    ): ResponseEntity<PageResponseDTO<UserResponseDTO>>
 
     @GetMapping(
         value = ["/monitored-apis/{id}"],

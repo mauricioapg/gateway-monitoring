@@ -2,6 +2,7 @@ package com.mauricio.gateway.controller
 
 import com.mauricio.gateway.adapter.monitoring.MonitoringAPI
 import com.mauricio.gateway.adapter.monitoring.request.UserRequestDTO
+import com.mauricio.gateway.adapter.monitoring.response.PageResponseDTO
 import com.mauricio.gateway.adapter.monitoring.response.UserResponseDTO
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -25,8 +26,8 @@ class UserController(
     }
 
     @GetMapping
-    fun list(): ResponseEntity<*> {
-        return monitoringAPI.getUsers()
+    fun list(): ResponseEntity<PageResponseDTO<UserResponseDTO>> {
+        return monitoringAPI.getUsers(0, 20)
     }
 
     @GetMapping("/teste")
@@ -37,25 +38,21 @@ class UserController(
     @PostMapping
     fun create(
         @RequestBody request: UserRequestDTO
-    ): ResponseEntity<*> =
+    ): UserResponseDTO =
         monitoringAPI.createUser(request)
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: String): ResponseEntity<*> =
+    fun getById(@PathVariable id: String): UserResponseDTO =
         monitoringAPI.getUserById(id)
 
     @PutMapping("/{id}")
     fun update(
         @PathVariable id: UUID,
         @RequestBody request: UserRequestDTO
-    ): ResponseEntity<*> =
+    ): UserResponseDTO =
         monitoringAPI.updateUser(id, request)
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: UUID) =
         monitoringAPI.deleteUser(id)
-
-    @GetMapping("email/{email}")
-    fun getByEmail(@PathVariable email: String): UserResponseDTO =
-        monitoringAPI.getUserByEmail(email)
 }
