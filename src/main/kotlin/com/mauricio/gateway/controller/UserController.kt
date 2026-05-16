@@ -2,6 +2,7 @@ package com.mauricio.gateway.controller
 
 import com.mauricio.gateway.adapter.monitoring.MonitoringAPI
 import com.mauricio.gateway.adapter.monitoring.request.UserRequestDTO
+import com.mauricio.gateway.adapter.monitoring.response.UserResponseDTO
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.UUID
@@ -53,4 +54,8 @@ class UserController(
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: UUID) =
         monitoringAPI.deleteUser(id)
+
+    @GetMapping("email/{email}")
+    fun getByEmail(@PathVariable email: String): UserResponseDTO =
+        monitoringAPI.getUserByEmail(email)
 }
