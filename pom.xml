@@ -20,7 +20,6 @@
 		<kotlin.version>2.2.21</kotlin.version>
 	</properties>
 
-	<!-- 🔥 versão compatível -->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -51,6 +50,18 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+		<!-- OKHTTP PARA FEIGN -->
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-okhttp</artifactId>
+		</dependency>
+
+		<!-- OKHTTP -->
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
 		</dependency>
 
 		<!-- KOTLIN -->
@@ -101,10 +112,12 @@
 	</dependencies>
 
 	<build>
+
 		<sourceDirectory>src/main/kotlin</sourceDirectory>
 		<testSourceDirectory>src/test/kotlin</testSourceDirectory>
 
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -113,11 +126,33 @@
 			<plugin>
 				<groupId>org.jetbrains.kotlin</groupId>
 				<artifactId>kotlin-maven-plugin</artifactId>
+				<version>${kotlin.version}</version>
+
+				<executions>
+					<execution>
+						<id>compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>test-compile</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>test-compile</goal>
+						</goals>
+					</execution>
+				</executions>
 
 				<configuration>
+					<jvmTarget>21</jvmTarget>
+
 					<args>
 						<arg>-Xjsr305=strict</arg>
 					</args>
+
 					<compilerPlugins>
 						<plugin>spring</plugin>
 					</compilerPlugins>
@@ -130,8 +165,11 @@
 						<version>${kotlin.version}</version>
 					</dependency>
 				</dependencies>
+
 			</plugin>
+
 		</plugins>
+
 	</build>
 
 </project>
