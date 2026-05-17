@@ -112,7 +112,10 @@ interface MonitoringAPI {
         value = ["/check-history"],
         produces = ["application/json"]
     )
-    fun getApiCheckHistory(): PageResponseDTO<ApiCheckHistoryResponseDTO>
+    fun getApiCheckHistory(
+        @RequestParam page: Int,
+        @RequestParam size: Int
+    ): PageResponseDTO<ApiCheckHistoryResponseDTO>
 
     @GetMapping(
         value = ["/check-history/{id}"],

@@ -14,25 +14,12 @@ class UserController(
     private val monitoringAPI: MonitoringAPI
 ) {
 
-    @GetMapping("/test-monitoring")
-    fun testMonitoring(): ResponseEntity<String> {
-
-        val url = "https://monitoring-api-1.onrender.com/health"
-
-        val response = java.net.URL(url)
-            .readText()
-
-        return ResponseEntity.ok(response)
-    }
-
     @GetMapping
-    fun list(): PageResponseDTO<UserResponseDTO> {
-        return monitoringAPI.getUsers(0, 20)
-    }
-
-    @GetMapping("/teste")
-    fun listTeste(): List<UserResponseDTO> {
-        return monitoringAPI.getUsersTeste()
+    fun list(
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "20") size: Int
+    ): PageResponseDTO<UserResponseDTO> {
+        return monitoringAPI.getUsers(page, size)
     }
 
     @PostMapping

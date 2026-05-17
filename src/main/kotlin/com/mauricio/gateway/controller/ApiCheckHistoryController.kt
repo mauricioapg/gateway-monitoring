@@ -20,8 +20,11 @@ class ApiCheckHistoryController(
     ) = monitoringAPI.createApiCheckHistory(request)
 
     @GetMapping
-    fun list(): PageResponseDTO<ApiCheckHistoryResponseDTO> {
-        return monitoringAPI.getApiCheckHistory()
+    fun list(
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "20") size: Int
+    ): PageResponseDTO<ApiCheckHistoryResponseDTO> {
+        return monitoringAPI.getApiCheckHistory(page, size)
     }
 
     @GetMapping("/{id}")
