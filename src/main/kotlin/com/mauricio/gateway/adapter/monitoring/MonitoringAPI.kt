@@ -3,6 +3,8 @@ package com.mauricio.gateway.adapter.monitoring
 import com.mauricio.gateway.adapter.monitoring.request.ApiCheckHistoryRequestDTO
 import com.mauricio.gateway.adapter.monitoring.request.MonitoredApiRequestDTO
 import com.mauricio.gateway.adapter.monitoring.request.UserRequestDTO
+import com.mauricio.gateway.adapter.monitoring.response.ApiCheckHistoryResponseDTO
+import com.mauricio.gateway.adapter.monitoring.response.MonitoredApiResponseDTO
 import com.mauricio.gateway.adapter.monitoring.response.PageResponseDTO
 import com.mauricio.gateway.adapter.monitoring.response.UserResponseDTO
 import com.mauricio.gateway.configuration.FeignConfig
@@ -76,13 +78,13 @@ interface MonitoringAPI {
     fun getMonitoredApis(
         @RequestParam page: Int,
         @RequestParam size: Int
-    ): ResponseEntity<PageResponseDTO<UserResponseDTO>>
+    ): PageResponseDTO<MonitoredApiResponseDTO>
 
     @GetMapping(
         value = ["/monitored-apis/{id}"],
         produces = ["application/json"]
     )
-    fun getMonitoredApiById(@PathVariable id:  String): ResponseEntity<*>
+    fun getMonitoredApiById(@PathVariable id:  String): MonitoredApiResponseDTO
 
     @PostMapping(
         value = ["/monitored-apis/user/{userId}"],
@@ -90,7 +92,7 @@ interface MonitoringAPI {
     )
     fun createMonitoredApi(
         @PathVariable userId: UUID,
-        @RequestBody request: MonitoredApiRequestDTO): ResponseEntity<*>
+        @RequestBody request: MonitoredApiRequestDTO): MonitoredApiResponseDTO
 
     @PutMapping(
         value = ["/monitored-apis/{id}"],
@@ -98,31 +100,31 @@ interface MonitoringAPI {
     )
     fun updateMonitoredApi(
         @PathVariable id: UUID,
-        @RequestBody request: MonitoredApiRequestDTO): ResponseEntity<*>
+        @RequestBody request: MonitoredApiRequestDTO): MonitoredApiResponseDTO
 
     @DeleteMapping(
         value = ["/monitored-apis/{id}"],
         produces = ["application/json"]
     )
-    fun deleteMonitoredApi(@PathVariable id: UUID): ResponseEntity<*>
+    fun deleteMonitoredApi(@PathVariable id: UUID): ApiCheckHistoryResponseDTO
 
     @GetMapping(
         value = ["/check-history"],
         produces = ["application/json"]
     )
-    fun getApiCheckHistory(): ResponseEntity<*>
+    fun getApiCheckHistory(): PageResponseDTO<ApiCheckHistoryResponseDTO>
 
     @GetMapping(
         value = ["/check-history/{id}"],
         produces = ["application/json"]
     )
-    fun getApiCheckHistoryById(@PathVariable id: String): ResponseEntity<*>
+    fun getApiCheckHistoryById(@PathVariable id: String): ApiCheckHistoryResponseDTO
 
     @PostMapping(
         value = ["/check-history"],
         produces = ["application/json"]
     )
-    fun createApiCheckHistory(@RequestBody request: ApiCheckHistoryRequestDTO): ResponseEntity<*>
+    fun createApiCheckHistory(@RequestBody request: ApiCheckHistoryRequestDTO): ApiCheckHistoryResponseDTO
 
     @PutMapping(
         value = ["/check-history/{id}"],
@@ -130,12 +132,12 @@ interface MonitoringAPI {
     )
     fun updateApiCheckHistory(
         @PathVariable id: UUID,
-        @RequestBody request: ApiCheckHistoryRequestDTO): ResponseEntity<*>
+        @RequestBody request: ApiCheckHistoryRequestDTO): ApiCheckHistoryResponseDTO
 
     @DeleteMapping(
         value = ["/check-history/{id}"],
         produces = ["application/json"]
     )
-    fun deleteApiCheckHistory(@PathVariable id: UUID): ResponseEntity<*>
+    fun deleteApiCheckHistory(@PathVariable id: UUID): ApiCheckHistoryResponseDTO
 
 }

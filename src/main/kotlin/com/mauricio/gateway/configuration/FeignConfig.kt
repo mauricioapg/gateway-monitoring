@@ -32,13 +32,6 @@ class FeignConfig {
                 "x-api-key",
                 "zurgD6SwnioG1bcAHqnjBPdBSWDjw2GuzNQNzgaEMo82HJRseynjyFwJ9tDcXIyG"
             )
-
-            log.info("""
-                FEIGN REQUEST
-                FULL URL: https://monitoring-api-1.onrender.com/api/v1${template.url()}
-                METHOD: ${template.method()}
-                HEADERS: ${template.headers()}
-            """.trimIndent())
         }
     }
 

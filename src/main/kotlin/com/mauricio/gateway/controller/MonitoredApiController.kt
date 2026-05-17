@@ -2,6 +2,8 @@ package com.mauricio.gateway.controller
 
 import com.mauricio.gateway.adapter.monitoring.MonitoringAPI
 import com.mauricio.gateway.adapter.monitoring.request.MonitoredApiRequestDTO
+import com.mauricio.gateway.adapter.monitoring.response.MonitoredApiResponseDTO
+import com.mauricio.gateway.adapter.monitoring.response.PageResponseDTO
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.UUID
@@ -16,26 +18,26 @@ class MonitoredApiController(
     fun create(
         @PathVariable userId: UUID,
         @RequestBody request: MonitoredApiRequestDTO
-    ): ResponseEntity<*> =
+    ): MonitoredApiResponseDTO =
         monitoringAPI.createMonitoredApi(userId, request)
 
     @GetMapping
     fun list(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "20") size: Int
-    ): ResponseEntity<*> {
+    ): PageResponseDTO<MonitoredApiResponseDTO> {
         return monitoringAPI.getMonitoredApis(page, size)
     }
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: String): ResponseEntity<*> =
+    fun getById(@PathVariable id: String): MonitoredApiResponseDTO =
         monitoringAPI.getMonitoredApiById(id)
 
     @PutMapping("/{id}")
     fun update(
         @PathVariable id: UUID,
         @RequestBody request: MonitoredApiRequestDTO
-    ): ResponseEntity<*> =
+    ): MonitoredApiResponseDTO =
         monitoringAPI.updateMonitoredApi(id, request)
 
     @DeleteMapping("/{id}")

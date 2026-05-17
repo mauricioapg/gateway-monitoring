@@ -1,6 +1,8 @@
 package com.mauricio.gateway.adapter.monitoring.request
 
 import com.mauricio.apimonitoring.enum.HttpMethodEnum
+import com.mauricio.gateway.dto.HeaderEmbeddable
+import com.mauricio.gateway.dto.ParamsEmbeddable
 
 data class MonitoredApiRequestDTO(
     val name: String,
@@ -15,14 +17,4 @@ data class MonitoredApiRequestDTO(
     val timeToSetOffline: Int? = 3,
     val expectedStatus: Int = 200,
     val active: Boolean = true,
-)
-
-data class HeaderEmbeddable(
-    var key: String,
-    var value: String
-)
-
-data class ParamsEmbeddable(
-    var key: String,
-    var value: String
 )
